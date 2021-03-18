@@ -9,11 +9,10 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Vector2f;
 
 public class GuiInGame implements Gui {
-    private ButtonRender QUIT;
-    private ButtonRender BACK;
+    private final ButtonRender QUIT;
+    private final ButtonRender BACK;
 
-    @Override
-    public void init() {
+    public GuiInGame() {
         this.BACK = new ButtonRender(new Vector2f(Display.getWidth() / 2, Display.getHeight() / 2 - 30), "BACK", 180, 60);
         this.QUIT = new ButtonRender(new Vector2f(Display.getWidth() / 2, Display.getHeight() / 2 + 50), "QUIT", 180, 60);
     }

@@ -21,9 +21,6 @@ public class GuiManager {
 
     public void setCurrentGui(Gui gui) {
         this.gui = gui;
-        if(gui != null) {
-            this.gui.init();
-        }
     }
 
     public Gui getCurrentGui() {

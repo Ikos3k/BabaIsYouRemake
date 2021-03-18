@@ -60,7 +60,7 @@ public class BabaIsYou extends BasicGame {
 
         if(guiManager.getCurrentGui() != null) {
             guiManager.render(graphics);
+            graphics.setColor(Color.white);
         }
-        graphics.setColor(Color.white);
     }
 }

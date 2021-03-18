@@ -25,18 +25,14 @@ public class Level {
         rules.clear();
 
         blocks.stream().filter(block -> block.getType() == BlockType.IS_TEXT).forEach(block -> {
-            getBlocksByPosition(block.getPosition().getX() - 1, block.getPosition().getY()).forEach(left -> getBlocksByPosition(block.getPosition().getX() + 1, block.getPosition().getY()).forEach(right -> {
-                if(left.getType().isSelector() && right.getType().isSelector() || left.getType().isSelector() && right.getType().isAction()) {
-                    addRule(left.getType(), right.getType());
-                    left.setActive(true); block.setActive(true); right.setActive(true);
-                }
+            getBlocksByPosition(block.getPosition().getX() - 1, block.getPosition().getY()).forEach(left -> getBlocksByPosition(block.getPosition().getX() + 1, block.getPosition().getY()).stream().filter(right -> left.getType().isSelector() && right.getType().isSelector() || left.getType().isSelector() && right.getType().isAction()).forEach(right -> {
+                addRule(left.getType(), right.getType());
+                left.setActive(true); block.setActive(true); right.setActive(true);
             }));
 
-            getBlocksByPosition(block.getPosition().getX(), block.getPosition().getY() - 1).forEach(up -> getBlocksByPosition(block.getPosition().getX(), block.getPosition().getY() + 1).forEach(down -> {
-                if(up.getType().isSelector() && down.getType().isSelector() || up.getType().isSelector() && down.getType().isAction()) {
-                    addRule(up.getType(), down.getType());
-                    up.setActive(true); block.setActive(true); down.setActive(true);
-                }
+            getBlocksByPosition(block.getPosition().getX(), block.getPosition().getY() - 1).forEach(up -> getBlocksByPosition(block.getPosition().getX(), block.getPosition().getY() + 1).stream().filter(down -> up.getType().isSelector() && down.getType().isSelector() || up.getType().isSelector() && down.getType().isAction()).forEach(down -> {
+                addRule(up.getType(), down.getType());
+                up.setActive(true); block.setActive(true); down.setActive(true);
             }));
         });
     }

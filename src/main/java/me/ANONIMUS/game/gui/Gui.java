@@ -6,8 +6,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 public interface Gui {
-    void init();
-
     void render(Graphics graphics, GameContainer container, BabaIsYou app);
 
     void tick(GameContainer container, int delta, BabaIsYou app) throws SlickException;

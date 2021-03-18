@@ -50,38 +50,36 @@ public class PlayScene implements Scene {
     }
 
     private void move(BabaIsYou app, Direction direction) {
-        level.getBlocks().forEach(block -> {
-            if (level.hasRule(block.getType(), BlockType.YOU)) {
-                List<BlockRender> pushBlocks = new ArrayList<>();
+        level.getBlocks().stream().filter(block -> level.hasRule(block.getType(), BlockType.YOU)).forEach(block -> {
+            List<BlockRender> pushBlocks = new ArrayList<>();
 
-                Vector2f pos = direction.getPos().copy();
-                while (level.getBlockByPosition(block.getPosition().getX() + pos.getX(), block.getPosition().getY() + pos.getY()) != null) {
-                    AtomicBoolean i = new AtomicBoolean(false);
+            Vector2f pos = direction.getPos().copy();
+            while (level.getBlockByPosition(block.getPosition().getX() + pos.getX(), block.getPosition().getY() + pos.getY()) != null) {
+                AtomicBoolean i = new AtomicBoolean(false);
 
-                    level.getBlocksByPosition(block.getPosition().getX() + pos.getX(), block.getPosition().getY() + pos.getY()).stream().filter(blockRender -> canPush(blockRender, pos)).forEach(blockRender -> {
-                        pushBlocks.add(blockRender);
-                        i.set(true);
-                    });
+                level.getBlocksByPosition(block.getPosition().getX() + pos.getX(), block.getPosition().getY() + pos.getY()).stream().filter(blockRender -> canPush(blockRender, direction.getPos())).forEach(blockRender -> {
+                    pushBlocks.add(blockRender);
+                    i.set(true);
+                });
 
-                    if (!i.get()) { break; }
-                    pos.add(direction.getPos());
-                }
+                if (!i.get()) { break; }
+                pos.add(direction.getPos());
+            }
 
-                pushBlocks.forEach(blockRender -> blockRender.getPosition().add(direction.getPos().copy()));
+            pushBlocks.forEach(blockRender -> blockRender.getPosition().add(direction.getPos()));
 
-                BlockRender blockRender = level.getBlockByPosition(block.getPosition().getX() + direction.getPos().getX(), block.getPosition().getY() + direction.getPos().getY());
-                if(blockRender == null || (!blockRender.getType().isPush() && !level.hasRule(blockRender.getType(), BlockType.PUSH) && !level.hasRule(blockRender.getType(), BlockType.STOP))) {
-                    block.getPosition().add(direction.getPos());
-                    if(blockRender != null) {
-                        if(level.hasRule(blockRender.getType(), BlockType.WIN)) {
-                            if(app.getLevelManager().getNext(level.getName()) != null) {
-                                app.getSceneManager().setCurrentScene(new PlayScene(app.getLevelManager().getNext(level.getName())));
-                            } else {
-                                app.getSceneManager().setCurrentScene(new MainScene());
-                            }
-                        } else if(level.hasRule(blockRender.getType(), BlockType.HOT) || level.hasRule(blockRender.getType(), BlockType.DEFEAT)) {
-                            level.restartLevel();
+            BlockRender blockRender = level.getBlockByPosition(block.getPosition().getX() + direction.getPos().getX(), block.getPosition().getY() + direction.getPos().getY());
+            if(blockRender == null || (!blockRender.getType().isPush() && !level.hasRule(blockRender.getType(), BlockType.PUSH) && !level.hasRule(blockRender.getType(), BlockType.STOP))) {
+                block.getPosition().add(direction.getPos());
+                if(blockRender != null) {
+                    if(level.hasRule(blockRender.getType(), BlockType.WIN)) {
+                        if(app.getLevelManager().getNext(level.getName()) != null) {
+                            app.getSceneManager().setCurrentScene(new PlayScene(app.getLevelManager().getNext(level.getName())));
+                        } else {
+                            app.getSceneManager().setCurrentScene(new MainScene());
                         }
+                    } else if(level.hasRule(blockRender.getType(), BlockType.HOT) || level.hasRule(blockRender.getType(), BlockType.DEFEAT)) {
+                        level.restartLevel();
                     }
                 }
             }
