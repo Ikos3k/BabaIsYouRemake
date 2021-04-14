@@ -19,11 +19,7 @@ public class GuiManager {
 
     public void render(Graphics graphics) { gui.render(graphics, container, app); }
 
-    public void setCurrentGui(Gui gui) {
-        this.gui = gui;
-    }
+    public void setCurrentGui(Gui gui) { this.gui = gui; }
 
-    public Gui getCurrentGui() {
-        return gui;
-    }
+    public Gui getCurrentGui() { return gui; }
 }

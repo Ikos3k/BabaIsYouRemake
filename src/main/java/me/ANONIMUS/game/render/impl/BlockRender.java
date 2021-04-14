@@ -27,12 +27,9 @@ public class BlockRender implements Render {
     @Override
     public void render(Graphics graphics, GameContainer container, BabaIsYou app) {
         if(type.isMaterial() || active) {
-            new Image("BabaIsYou/assets/" + type.getTexture() + ".png").draw((container.getWidth() / 2) + position.getX() * 40 - 20, (container.getHeight() / 2) + (position.getY() * 40) - 20, 40, 40);
+            new Image("BabaIsYou/assets/" + type.getTexture() + ".png").draw(640 + position.getX() * 40 - 20, 360 + (position.getY() * 40) - 20, 40, 40);
         } else {
-            new Image("BabaIsYou/assets/" + type.getTexture() + ".png").draw((container.getWidth() / 2) + position.getX() * 40 - 20, (container.getHeight() / 2) + (position.getY() * 40) - 20, 40, 40, Color.gray);
+            new Image("BabaIsYou/assets/" + type.getTexture() + ".png").draw(640 + position.getX() * 40 - 20, 360 + (position.getY() * 40) - 20, 40, 40, Color.gray);
         }
     }
-
-    @Override
-    public void tick(GameContainer container, BabaIsYou app) { }
 }

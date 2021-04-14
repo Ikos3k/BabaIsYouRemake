@@ -7,6 +7,4 @@ import org.newdawn.slick.SlickException;
 
 public interface Render {
     void render(Graphics graphics, GameContainer container, BabaIsYou app) throws SlickException;
-
-    void tick(GameContainer container, BabaIsYou app);
 }

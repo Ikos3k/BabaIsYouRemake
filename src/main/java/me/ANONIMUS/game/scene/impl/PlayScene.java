@@ -30,9 +30,9 @@ public class PlayScene implements Scene {
         level.getBlocks().forEach(block -> block.render(graphics, container, app));
 
         if(!level.isGameOver()) {
-            graphics.drawString(level.getName(), (container.getWidth() / 2) - graphics.getFont().getWidth(level.getName()) / 2, container.getHeight() - graphics.getFont().getHeight(level.getName()));
+            graphics.drawString(level.getName(), 640 - graphics.getFont().getWidth(level.getName()) / 2, 720 - graphics.getFont().getHeight(level.getName()));
         } else {
-            graphics.drawString("Game Over!", (container.getWidth() / 2) - graphics.getFont().getWidth("Game Over!") / 2, container.getHeight() - graphics.getFont().getHeight("Game Over!"));
+            graphics.drawString("Game Over!", 640 - graphics.getFont().getWidth("Game Over!") / 2, 720 - graphics.getFont().getHeight("Game Over!"));
         }
     }
 

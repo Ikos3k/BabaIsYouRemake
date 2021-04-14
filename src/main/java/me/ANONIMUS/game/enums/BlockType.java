@@ -9,51 +9,51 @@ public enum BlockType {
     WATER_MATERIAL("water"),
     SKULL_MATERIAL("skull"),
 
-    BABA_TEXT("text/baba", true),
-    ROCK_TEXT("text/rock", true),
-    FLAG_TEXT("text/flag", true),
-    WALL_TEXT("text/wall", true),
-    MELT_TEXT("text/melt", true),
-    LAVA_TEXT("text/lava", true),
-    SKULL_TEXT("text/skull", true),
-    IS_TEXT("text/is", true),
+    BABA_TEXT("text/baba"),
+    ROCK_TEXT("text/rock"),
+    FLAG_TEXT("text/flag"),
+    WALL_TEXT("text/wall"),
+    MELT_TEXT("text/melt"),
+    LAVA_TEXT("text/lava"),
+    SKULL_TEXT("text/skull"),
+    IS_TEXT("text/is"),
 
-    DEFEAT("text/defeat", true),
-    WIN("text/win", true),
-    STOP("text/stop", true),
-    PUSH("text/push", true),
-    YOU("text/you", true),
-    HOT("text/hot", true),
-    MELT("text/melt", true);
+    DEFEAT("text/defeat"),
+    WIN("text/win"),
+    STOP("text/stop"),
+    PUSH("text/push"),
+    YOU("text/you"),
+    HOT("text/hot"),
+    MELT("text/melt");
 
     public boolean isMaterial() {
         return this == BABA_MATERIAL
-                || this == FLAG_MATERIAL
-                || this == WALL_MATERIAL
-                || this == ROCK_MATERIAL
-                || this == WATER_MATERIAL
-                || this == SKULL_MATERIAL
-                || this == LAVA_MATERIAL;
+            || this == FLAG_MATERIAL
+            || this == WALL_MATERIAL
+            || this == ROCK_MATERIAL
+            || this == WATER_MATERIAL
+            || this == SKULL_MATERIAL
+            || this == LAVA_MATERIAL;
     }
 
     public boolean isSelector() {
         return this == BABA_TEXT
-                || this == FLAG_TEXT
-                || this == WALL_TEXT
-                || this == ROCK_TEXT
-                || this == MELT_TEXT
-                || this == SKULL_TEXT
-                || this == LAVA_TEXT;
+            || this == FLAG_TEXT
+            || this == WALL_TEXT
+            || this == ROCK_TEXT
+            || this == MELT_TEXT
+            || this == SKULL_TEXT
+            || this == LAVA_TEXT;
     }
 
     public boolean isAction() {
         return this == WIN
-                || this == STOP
-                || this == PUSH
-                || this == YOU
-                || this == HOT
-                || this == MELT
-                || this == DEFEAT;
+            || this == STOP
+            || this == PUSH
+            || this == YOU
+            || this == HOT
+            || this == MELT
+            || this == DEFEAT;
     }
 
     public BlockType getBySelector() {
@@ -75,21 +75,12 @@ public enum BlockType {
     }
 
     private final String texture;
-    private final boolean push;
-
-    BlockType(String texture, boolean push) {
-        this.texture = texture;
-        this.push = push;
-    }
 
     BlockType(String texture) {
         this.texture = texture;
-        this.push = false;
     }
 
-    public boolean isPush() { return push; }
+    public boolean isPush() { return isSelector() || isAction() || this == IS_TEXT; }
 
-    public String getTexture() {
-        return texture;
-    }
+    public String getTexture() { return texture; }
 }
