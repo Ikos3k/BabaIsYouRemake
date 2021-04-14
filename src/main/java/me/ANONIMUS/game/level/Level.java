@@ -93,6 +93,8 @@ public class Level {
 
     public List<BlockRender> getBlocks() { return blocks; }
 
+    public HashMap<BlockType, List<BlockType>> getRules() { return rules; }
+
     public BlockRender getBlockByPosition(float x, float y) { return getBlockByPosition(new Vector2f(x, y)); }
 
     public List<BlockRender> getBlocksByPosition(float x, float y) { return getBlocksByPosition(new Vector2f(x, y)); }

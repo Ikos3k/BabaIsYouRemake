@@ -2,11 +2,10 @@ package me.ANONIMUS.game;
 
 import lombok.Getter;
 import me.ANONIMUS.game.gui.GuiManager;
-import me.ANONIMUS.game.gui.impl.GuiInGame;
+import me.ANONIMUS.game.gui.impl.OptionsInGameGui;
 import me.ANONIMUS.game.level.LevelManager;
 import me.ANONIMUS.game.scene.SceneManager;
 import me.ANONIMUS.game.scene.impl.MainScene;
-import me.ANONIMUS.game.scene.impl.PlayScene;
 import org.newdawn.slick.*;
 
 @Getter
@@ -40,13 +39,14 @@ public class BabaIsYou extends BasicGame {
     @Override
     public void update(GameContainer gameContainer, int i) throws SlickException {
         sceneManager.tick(i);
+
         if(guiManager.getCurrentGui() != null) {
             guiManager.tick(i);
         }
 
-        if(gameContainer.getInput().isKeyPressed(Input.KEY_ESCAPE) && sceneManager.getCurrentScene() instanceof PlayScene) {
+        if(gameContainer.getInput().isKeyPressed(Input.KEY_ESCAPE) && !(sceneManager.getCurrentScene() instanceof MainScene)) {
             if(guiManager.getCurrentGui() == null) {
-                guiManager.setCurrentGui(new GuiInGame());
+                guiManager.setCurrentGui(new OptionsInGameGui());
             } else {
                 guiManager.setCurrentGui(null);
             }

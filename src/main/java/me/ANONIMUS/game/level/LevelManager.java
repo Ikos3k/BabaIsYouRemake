@@ -13,9 +13,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class LevelManager {
-    private final List<String> levels = new ArrayList<>();
+    private List<String> levels;
 
     public void init() {
+        levels = new ArrayList<>();
+
         for (File file : Objects.requireNonNull(new File("BabaIsYou/levels").listFiles())) {
             levels.add(file.getName());
         }
