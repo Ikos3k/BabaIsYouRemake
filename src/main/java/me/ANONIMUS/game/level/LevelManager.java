@@ -1,5 +1,6 @@
 package me.ANONIMUS.game.level;
 
+import lombok.Getter;
 import me.ANONIMUS.game.enums.BlockType;
 import me.ANONIMUS.game.render.impl.BlockRender;
 import org.newdawn.slick.geom.Vector2f;
@@ -8,19 +9,23 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
+@Getter
 public class LevelManager {
     private List<String> levels;
 
     public void init() {
         levels = new ArrayList<>();
 
-        for (File file : Objects.requireNonNull(new File("BabaIsYou/levels").listFiles())) {
-            levels.add(file.getName());
-        }
+        Arrays.stream(Objects.requireNonNull(new File("BabaIsYou/levels").listFiles()))
+            .sorted(Comparator.comparingInt(file -> {
+                try {
+                    return Integer.parseInt(file.getName().split("\\.")[0]);
+                } catch (Exception ignored) {
+                    return 0;
+                }
+            })).map(File::getName).forEach(levels::add);
     }
 
     public String getNext(String level) {
@@ -41,6 +46,4 @@ public class LevelManager {
         level.readRules();
         return level;
     }
-
-    public List<String> getLevels() { return levels; }
 }
